@@ -70,7 +70,3 @@ class Block:
             f")"
         )
 
-
-# tests
-block = Block(0, None, time.time(), "Genesis Block")
-block.proof_of_work(6)
