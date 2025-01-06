@@ -4,7 +4,7 @@ from block import Block
 
 
 class Blockchain:
-    def __init__(self, difficulty=1):
+    def __init__(self, difficulty: int = 1):
         self.difficulty = difficulty
         self.chain = []
         self.unconfirmed_transactions = []
@@ -16,5 +16,17 @@ class Blockchain:
         print(genesis_block)
         self.chain.append(genesis_block)
 
+    def last_block(self) -> Block:
+        return self.chain[-1]
+
+    def add_block(self, block: Block) -> bool:
+        if block.previous_hash != self.last_block().compute_hash():
+            return False
+        if not block.is_valid(self.difficulty):
+            return False
+        self.chain.append(block)
+        return True
+
 blockchain_demo = Blockchain(1)
 blockchain_demo.create_genesis_block()
+print(blockchain_demo.chain)

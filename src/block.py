@@ -69,4 +69,3 @@ class Block:
             f"Nonce: {self.nonce}"
             f")"
         )
-
