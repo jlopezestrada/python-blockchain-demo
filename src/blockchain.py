@@ -1,6 +1,7 @@
 import time
 
 from block import Block
+from transaction import Transaction
 
 
 class Blockchain:
@@ -25,6 +26,35 @@ class Blockchain:
         if not block.is_valid(self.difficulty):
             return False
         self.chain.append(block)
+        return True
+
+    def add_transaction(self, transaction: Transaction):
+        self.unconfirmed_transactions.append(transaction)
+
+    def mine_block(self) -> Block:
+        if not self.unconfirmed_transactions:
+            print("No transactions to mine.")
+            return None
+
+        new_block = Block(
+            index=len(self.chain),
+            previous_hash=self.last_block().compute_hash(),
+            timestamp=time.time(),
+            data=self.unconfirmed_transactions
+        )
+        new_block.proof_of_work(self.difficulty)
+        self.add_block(new_block)
+        self.unconfirmed_transactions = []
+        return new_block
+
+    def is_chain_valid(self) -> bool:
+        for i in range(1, len(self.chain)):
+            current = self.chain[i]
+            previous = self.chain[i]
+            if current.previous_hash != previous.compute_hash():
+                return False
+            if not current.is_valid(self.difficulty):
+                return False
         return True
 
 blockchain_demo = Blockchain(1)
