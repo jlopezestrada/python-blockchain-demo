@@ -4,23 +4,23 @@ from datetime import datetime
 
 
 class Block:
-    def __init__(self, index, previous_hash, timestamp, data, nonce=0):
+    def __init__(self, index: int, previous_hash: str, timestamp: float, data: list, nonce: int = 0):
         self.index = index
         self.previous_hash = previous_hash
         self.timestamp = timestamp
         self.data = data
         self.nonce = nonce
 
-    def compute_hash(self):
+    def compute_hash(self) -> str:
         """Return the hash of the block by encoding its properties."""
         block_string = f"{self.index}{self.previous_hash}{self.timestamp}{self.data}{self.nonce}"
         return hashlib.sha256(block_string.encode()).hexdigest()
 
-    def is_valid(self, difficulty):
+    def is_valid(self, difficulty: int) -> bool:
         """Check if the block is valid based on the hash."""
         return self.compute_hash().startswith("0" * difficulty)
 
-    def proof_of_work(self, difficulty, verbose=False):
+    def proof_of_work(self, difficulty: int, verbose=False):
         """
         Performs the proof-of-work algorithm with an option to enable or disable logging.
 
@@ -57,7 +57,7 @@ class Block:
             print(f"Hash: {self.compute_hash()}")
             print(f"Nonce: {self.nonce}")
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Provides a detailed string representation of the block for debugging."""
         return (
             f"Block("

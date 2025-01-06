@@ -56,7 +56,3 @@ class Blockchain:
             if not current.is_valid(self.difficulty):
                 return False
         return True
-
-blockchain_demo = Blockchain(1)
-blockchain_demo.create_genesis_block()
-print(blockchain_demo.chain)
