@@ -50,7 +50,7 @@ class Blockchain:
     def is_chain_valid(self) -> bool:
         for i in range(1, len(self.chain)):
             current = self.chain[i]
-            previous = self.chain[i]
+            previous = self.chain[i - 1]
             if current.previous_hash != previous.compute_hash():
                 return False
             if not current.is_valid(self.difficulty):
