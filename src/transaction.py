@@ -11,7 +11,4 @@ class Transaction:
 
     def compute_hash(self) -> str:
         transaction_string = f"{self.sender}{self.recipient}{self.amount}{self.timestamp}"
-        return hashlib.sha256(transaction_string.encode()).hexdigest() 
-
-test_transaction = Transaction("sender", "recipient", 1000)
-print(test_transaction.compute_hash())
+        return hashlib.sha256(transaction_string.encode()).hexdigest()
